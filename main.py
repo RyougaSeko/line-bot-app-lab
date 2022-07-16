@@ -13,7 +13,7 @@ MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage,
 )
 
 from io import BytesIO, StringIO
-from PIL import Image
+#from PIL import Image
 import requests
 import urllib.parse
 import xml.etree.ElementTree as ET
@@ -98,7 +98,7 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text)) #ここでオウム返しのメッセージを返します。
+        TextSendMessage(text="Hi")) #ここでオウム返しのメッセージを返します。
  
 # ポート番号の設定
 if __name__ == "__main__":
