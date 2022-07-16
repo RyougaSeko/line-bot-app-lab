@@ -105,9 +105,11 @@ def callback():
  
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.latitude and event.message.longitude))#ここでメッセージを返します。
+    geo_info = [event.message.latitude, event.message.longitude]
+    for i in range(2):
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(geo_info[i]))#ここでメッセージを返します。
 # def revert_json_py(s):
 #     d = json.loads(request.json)
 
