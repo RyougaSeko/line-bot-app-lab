@@ -1,4 +1,6 @@
-from flask import Flask, request, abort
+import os
+import sys
+from flask import Flask, request, abort, send_file
  
 from linebot import (
     LineBotApi, WebhookHandler
@@ -7,9 +9,14 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize
 )
-import os
+
+from io import BytesIO, StringIO
+from PIL import Image
+import requests
+import urllib.parse
+import xml.etree.ElementTree as ET
  
 app = Flask(__name__)
  
@@ -19,46 +26,82 @@ app = Flask(__name__)
 line_bot_api = LineBotApi('1BDCusHAfyLU9N+yl8EB1HQC4VFSgGs2AtLMQkwcg43qdf9STwQfONWPCM40W76h74Ad003w5ddcZdVSNoNcDH7h/opvM3UfoLasHEVRn1x13PrSx9kcGVz6w2SNxa02ne0VbNwZgf8Z0LLODSIK7AdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('71b252f9a0355dc60dd372de730204bf')
  
+lat = 34.488677
+lon = 135.742735
+
+url = 'http://map.simpleapi.net/stationapi?x={}&y={}&output=xml'.format(lon, lat)
+req = urllib.request.Request(url)
+
+with urllib.request.urlopen(req) as response:
+    xml = response.read()
+data = ET.fromstring(xml)
+station_list = data.findall(".//name")
+walk_list = data.findall(".//traveltime")
+
+ #出力結果確認 
+for i in station_list:
+   n = urllib.parse.unquote_plus(i.text)
+   print(n)
+   
+   
+print("-----")
+
+
+for ii in walk_list:
+   m = urllib.parse.unquote_plus(ii.text)
+   print(m)
+
+
+
+
+
+
+
+
+
+
+
+#王蟲返しapp
+
+# ## 1 ##
+# #Webhookからのリクエストをチェックします。
+# @app.route("/callback", methods=['POST'])
+# def callback():
+#     # リクエストヘッダーから署名検証のための値を取得します。
+#     signature = request.headers['X-Line-Signature']
  
-## 1 ##
-#Webhookからのリクエストをチェックします。
-@app.route("/callback", methods=['POST'])
-def callback():
-    # リクエストヘッダーから署名検証のための値を取得します。
-    signature = request.headers['X-Line-Signature']
+#     # リクエストボディを取得します。
+#     body = request.get_data(as_text=True)
+#     app.logger.info("Request body: " + body)
  
-    # リクエストボディを取得します。
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+#     # handle webhook body
+# # 署名を検証し、問題なければhandleに定義されている関数を呼び出す。
+#     try:
+#         handler.handle(body, signature)
+# # 署名検証で失敗した場合、例外を出す。
+#     except InvalidSignatureError:
+#         abort(400)
+# # handleの処理を終えればOK
+#     return 'OK'
  
-    # handle webhook body
-# 署名を検証し、問題なければhandleに定義されている関数を呼び出す。
-    try:
-        handler.handle(body, signature)
-# 署名検証で失敗した場合、例外を出す。
-    except InvalidSignatureError:
-        abort(400)
-# handleの処理を終えればOK
-    return 'OK'
+# ## 2 ##
+# ###############################################
+# #LINEのメッセージの取得と返信内容の設定(オウム返し)
+# ###############################################
  
-## 2 ##
-###############################################
-#LINEのメッセージの取得と返信内容の設定(オウム返し)
-###############################################
+# #LINEでMessageEvent（普通のメッセージを送信された場合）が起こった場合に、
+# #def以下の関数を実行します。
+# #reply_messageの第一引数のevent.reply_tokenは、イベントの応答に用いるトークンです。 
+# #第二引数には、linebot.modelsに定義されている返信用のTextSendMessageオブジェクトを渡しています。
  
-#LINEでMessageEvent（普通のメッセージを送信された場合）が起こった場合に、
-#def以下の関数を実行します。
-#reply_messageの第一引数のevent.reply_tokenは、イベントの応答に用いるトークンです。 
-#第二引数には、linebot.modelsに定義されている返信用のTextSendMessageオブジェクトを渡しています。
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         TextSendMessage(text=event.message.text)) #ここでオウム返しのメッセージを返します。
  
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text)) #ここでオウム返しのメッセージを返します。
- 
-# ポート番号の設定
-if __name__ == "__main__":
-#    app.run()
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+# # ポート番号の設定
+# if __name__ == "__main__":
+# #    app.run()
+#     port = int(os.getenv("PORT", 5000))
+#     app.run(host="0.0.0.0", port=port)
