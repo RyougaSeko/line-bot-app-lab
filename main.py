@@ -109,7 +109,7 @@ def handle_message(event):
     for i in range(2):
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(geo_info[i]))#ここでメッセージを返します。
+            TextSendMessage(geo_info[i - 1]))#ここでメッセージを返します。
 # def revert_json_py(s):
 #     d = json.loads(request.json)
 
