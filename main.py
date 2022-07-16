@@ -1,6 +1,7 @@
 import os
 import sys
 from flask import Flask, request, abort, send_file
+import json
  
 from linebot import (
     LineBotApi, WebhookHandler
@@ -77,6 +78,7 @@ def callback():
     # handle webhook body
 # 署名を検証し、問題なければhandleに定義されている関数を呼び出す。
     try:
+        revert_json_py(body)
         handler.handle(body, signature)
 # 署名検証で失敗した場合、例外を出す。
     except InvalidSignatureError:
@@ -94,12 +96,23 @@ def callback():
 #reply_messageの第一引数のevent.reply_tokenは、イベントの応答に用いるトークンです。 
 #第二引数には、linebot.modelsに定義されている返信用のTextSendMessageオブジェクトを渡しています。
  
-@handler.add(MessageEvent, message=TextMessage)
+ #メッセージを受け取った時にする処理
+# @handler.add(MessageEvent, message=TextMessage)
+# def handle_message(event):
+#     line_bot_api.reply_message(
+#         event.reply_token,
+#         TextSendMessage(text="Hi")) #ここでオウム返しのメッセージを返します。
+ 
+@handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="Hi")) #ここでオウム返しのメッセージを返します。
- 
+        TextSendMessage(text=revert_json_py.d)) #ここでオウム返しのメッセージを返します。
+
+def revert_json_py(s):
+    d = json.loads(s)
+
+
 # ポート番号の設定
 if __name__ == "__main__":
 #    app.run()
