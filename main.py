@@ -107,9 +107,7 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.address)) #ここでオウム返しのメッセージを返します。
-
-
+        TextSendMessage(text=event.message.latitude + event.message.longitude))#ここでメッセージを返します。
 # def revert_json_py(s):
 #     d = json.loads(request.json)
 
