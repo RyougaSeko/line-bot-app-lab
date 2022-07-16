@@ -78,7 +78,7 @@ def callback():
     # handle webhook body
 # 署名を検証し、問題なければhandleに定義されている関数を呼び出す。
     try:
-        revert_json_py(body)
+        #revert_json_py(body)
         handler.handle(body, signature)
 # 署名検証で失敗した場合、例外を出す。
     except InvalidSignatureError:
@@ -107,10 +107,11 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=revert_json_py.d)) #ここでオウム返しのメッセージを返します。
+        TextSendMessage(text=event.message.address)) #ここでオウム返しのメッセージを返します。
 
-def revert_json_py(s):
-    d = json.loads(s)
+
+# def revert_json_py(s):
+#     d = json.loads(request.json)
 
 
 # ポート番号の設定
