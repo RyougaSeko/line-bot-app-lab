@@ -81,7 +81,7 @@ def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(myspred.list_of_hashes))#ここでメッセージを返します。
+        TextSendMessage(myspred.restaurant_info))#ここでメッセージを返します。
 # def revert_json_py(s):
 #     d = json.loads(request.json)
 
