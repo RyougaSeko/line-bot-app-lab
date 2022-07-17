@@ -16,3 +16,4 @@ zipp==3.8.0
 google-auth==2.9.1
 google-auth-oauthlib==0.5.2
 gspread==5.4.0
+oauth2client==4.1.3
