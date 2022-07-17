@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append("/Users/hoop105ryouga/Documents/LineBot/.venv/lib/python3.9/site-packages")
+sys.path.append(".venv/lib/python3.9/site-packages")
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
