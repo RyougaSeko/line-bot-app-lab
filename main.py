@@ -81,10 +81,19 @@ def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(myspred))#ここでメッセージを返します。
+        TextSendMessage(myspred.info))#ここでメッセージを返します。
 # def revert_json_py(s):
 #     d = json.loads(request.json)
 
+# #タプルを取得
+# def func1(myspred):
+#     list1 = []
+#     list2 = []
+#     list3 = []
+#     for a, b in myspred:
+#         list1.append(a)
+#         list2.append(b)
+#     return list1, list2
 
 # ポート番号の設定
 if __name__ == "__main__":
