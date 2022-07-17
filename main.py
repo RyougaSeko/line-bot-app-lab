@@ -1,7 +1,10 @@
 import os
 import sys
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+sys.path.append("/Users/hoop105ryouga/Documents/LineBot/.venv/lib/python3.9/site-packages")
+
 #spredsheet.pyをmyspredとしてインポート
 sys.path.append("spreadsheet.py")
 import spreadsheet as myspred
