@@ -24,7 +24,8 @@ import urllib.parse
 import xml.etree.ElementTree as ET
 
 sys.path.append("spreadsheet.py")
-import spreadsheet as myspred
+# import spreadsheet as myspred
+from spreadsheet import info
  
 app = Flask(__name__)
 
@@ -81,7 +82,7 @@ def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(myspred.info))#ここでメッセージを返します。
+        TextSendMessage(info))#ここでメッセージを返します。
 # def revert_json_py(s):
 #     d = json.loads(request.json)
 
