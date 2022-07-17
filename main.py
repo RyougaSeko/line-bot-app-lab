@@ -1,5 +1,8 @@
 import os
 import sys
+#spredsheet.pyをmyspredとしてインポート
+sys.path.append("spreadsheet.py")
+import spreadsheet as myspred
 from flask import Flask, request, abort, send_file
 import json
  
@@ -18,48 +21,15 @@ from io import BytesIO, StringIO
 import requests
 import urllib.parse
 import xml.etree.ElementTree as ET
+
  
 app = Flask(__name__)
- 
+
 #環境変数取得
 # LINE Developersで設定されているアクセストークンとChannel Secretをを取得し、設定します。
  
 line_bot_api = LineBotApi('1BDCusHAfyLU9N+yl8EB1HQC4VFSgGs2AtLMQkwcg43qdf9STwQfONWPCM40W76h74Ad003w5ddcZdVSNoNcDH7h/opvM3UfoLasHEVRn1x13PrSx9kcGVz6w2SNxa02ne0VbNwZgf8Z0LLODSIK7AdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('71b252f9a0355dc60dd372de730204bf')
- 
-# lat = 34.488677
-# lon = 135.742735
-
-# url = 'http://map.simpleapi.net/stationapi?x={}&y={}&output=xml'.format(lon, lat)
-# req = urllib.request.Request(url)
-
-# with urllib.request.urlopen(req) as response:
-#     xml = response.read()
-# data = ET.fromstring(xml)
-# station_list = data.findall(".//name")
-# walk_list = data.findall(".//traveltime")
-
-#  #出力結果確認 
-# for i in station_list:
-#    n = urllib.parse.unquote_plus(i.text)
-#    print(n)
-   
-   
-# print("-----")
-
-
-# for ii in walk_list:
-#    m = urllib.parse.unquote_plus(ii.text)
-#    print(m)
-
-
-
-
-
-
-
-
-
 
 
 #王蟲返しapp
@@ -105,10 +75,10 @@ def callback():
  
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
-    geo_info = f"{event.message.latitude} {event.message.longitude}"
+#   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(geo_info))#ここでメッセージを返します。
+        TextSendMessage(myspred))#ここでメッセージを返します。
 # def revert_json_py(s):
 #     d = json.loads(request.json)
 
