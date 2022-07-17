@@ -1,12 +1,9 @@
 import os
 import sys
-sys.path.append(".venv/lib/python3.9/site-packages")
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+# sys.path.append("/Users/hoop105ryouga/Documents/LineBot/.venv/lib/python3.9/site-packages")
 
 #spredsheet.pyをmyspredとしてインポート
-sys.path.append("spreadsheet.py")
-import spreadsheet as myspred
+
 from flask import Flask, request, abort, send_file
 import json
  
@@ -26,6 +23,8 @@ import requests
 import urllib.parse
 import xml.etree.ElementTree as ET
 
+sys.path.append("spreadsheet.py")
+import spreadsheet as myspred
  
 app = Flask(__name__)
 
