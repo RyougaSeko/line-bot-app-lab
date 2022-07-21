@@ -15,5 +15,6 @@ sheet = client.open("飲食店DB").sheet1
 # Extract and print all of the values
 list_of_hashes = sheet.get_all_records()
 restaurant_info = list_of_hashes[0]
+info = "あいうえお"
 for myvalue in restaurant_info.values():
-    print(myvalue)
+    info += myvalue
