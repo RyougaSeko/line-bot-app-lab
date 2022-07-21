@@ -14,7 +14,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize
+MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize, FlexSendMessage
 )
 
 from io import BytesIO, StringIO
@@ -73,13 +73,23 @@ def callback():
 json_open = open('pic_image.json', 'r')
 json_load = json.load(json_open)
 print(json_load)
+
+flex_message = FlexSendMessage(
+    alt_text='hello',
+    contents={
+        'type': 'bubble',
+        'direction': 'ltr',
+        'hero': json_load
+    }
+)
+
  
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(json_load))#ここでメッセージを返します。
+        flex_message)#ここでメッセージを返します。
 
 # ポート番号の設定
 if __name__ == "__main__":
