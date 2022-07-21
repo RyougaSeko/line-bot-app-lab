@@ -70,8 +70,9 @@ def callback():
 #         event.reply_token,
 #         TextSendMessage(text="Hi")) #ここでオウム返しのメッセージを返します。
 
-json_open = open('/Users/hoop105ryouga/Documents/LineBot/pic_image.json', 'r')
+json_open = open('pic_image.json', 'r')
 json_load = json.load(json_open)
+print(json_load)
  
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
