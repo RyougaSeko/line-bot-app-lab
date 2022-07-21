@@ -76,11 +76,7 @@ print(json_load)
 
 flex_message = FlexSendMessage(
     alt_text='hello',
-    contents={
-        'type': 'bubble',
-        'direction': 'ltr',
-        'hero': json_load
-    }
+    contents=json_load
 )
 
  
