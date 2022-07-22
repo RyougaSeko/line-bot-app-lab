@@ -84,9 +84,10 @@ print(json_load)
 # )
 
 text_message = TextSendMessage(text='Hello, world',
-                               quick_reply=QuickReply(items=[
-                                   QuickReplyButton(action=MessageAction(label="label", text="text"))
-                               ])) 
+                               quick_reply=QuickReply(
+                                   items = json_load["quickReply"]["items"]
+                               ))
+
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
