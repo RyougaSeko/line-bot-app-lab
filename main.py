@@ -73,11 +73,15 @@ json_open = open('quick_reply.json', 'r')
 json_load = json.load(json_open)
 print(json_load)
 
-flex_message = FlexSendMessage(
-    alt_text='hello',
-    contents=json_load
-)
+# flex_message = FlexSendMessage(
+#     alt_text='hello',
+#     contents=json_load
+# )
 
+text_message = TextSendMessage(
+    text='Hello, world',
+    quick_reply=json_load
+)
  
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
