@@ -78,17 +78,19 @@ print(json_load)
 #     contents=json_load
 # )
 
-text_message = TextSendMessage(
-    text='Hello, world',
-    quick_reply=json_load
-)
+# text_message = TextSendMessage(
+#     text='Hello, world',
+#     quick_reply=json_load
+# )
  
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        text_message)#ここでメッセージを返します。
+        TextSendMessage(text=event.message.text,
+        quick_reply=json_load
+        ))#ここでメッセージを返します。
 
 # ポート番号の設定
 if __name__ == "__main__":
