@@ -5,7 +5,6 @@ import json
 #jsonファイルのインポート
 
 from flask import Flask, request, abort, send_file
-import json
  
 from linebot import (
     LineBotApi, WebhookHandler
@@ -70,7 +69,7 @@ def callback():
 #         event.reply_token,
 #         TextSendMessage(text="Hi")) #ここでオウム返しのメッセージを返します。
 
-json_open = open('pic_image.json', 'r')
+json_open = open('quick_reply.json', 'r')
 json_load = json.load(json_open)
 print(json_load)
 
