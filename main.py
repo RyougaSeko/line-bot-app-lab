@@ -87,8 +87,7 @@ print(json_load)
 def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
-        event.reply_token,
-        QuickReply(json_load))#ここでメッセージを返します。
+        event.reply_token,"Hello")#ここでメッセージを返します。
 
 # ポート番号の設定
 if __name__ == "__main__":
