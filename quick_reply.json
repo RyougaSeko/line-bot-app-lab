@@ -5,16 +5,25 @@
   "items": [
     {
       "type": "action",
-      "imageUrl": "https://example.com/sushi.png",
+      "imageUrl": "https://4.bp.blogspot.com/-ij99TLBE7TE/V0QnVwxSwTI/AAAAAAAA62w/i89LxWFishAcAlW5YkJD9LrEaGKvVnUqwCLcB/s800/billiards_ball01.png",
       "action": {
         "type": "message",
-        "label": "Sushi",
-        "text": "Sushi"
+        "label": "ビリヤード",
+        "text": "ビリヤード"
       }
     },
     {
-      "type": "action",
-      "imageUrl": "https://example.com/tempura.png",
+      "type": "ダーツ",
+      "imageUrl": "https://thumb.ac-illust.com/d2/d2bed86cb4906a5078f5d4b5292fc91b_w.jpeg",
+      "action": {
+        "type": "message",
+        "label": "Tempura",
+        "text": "Tempura"
+      }
+    },
+    {
+      "type": "カラオケ",
+      "imageUrl": "https://thumb.ac-illust.com/52/52f83af7d4f44e4bdc28c14299d468af_w.jpeg",
       "action": {
         "type": "message",
         "label": "Tempura",
