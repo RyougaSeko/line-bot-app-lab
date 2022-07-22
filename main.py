@@ -13,7 +13,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize, FlexSendMessage
+MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize, FlexSendMessage, QuickReply
 )
 
 from io import BytesIO, StringIO
@@ -88,9 +88,7 @@ def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text,
-        quick_reply=json_load
-        ))#ここでメッセージを返します。
+        QuickReply(json_load))#ここでメッセージを返します。
 
 # ポート番号の設定
 if __name__ == "__main__":
