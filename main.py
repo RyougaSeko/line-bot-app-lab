@@ -88,7 +88,7 @@ def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     line_bot_api.reply_message(
         event.reply_token,
-        flex_message)#ここでメッセージを返します。
+        text_message)#ここでメッセージを返します。
 
 # ポート番号の設定
 if __name__ == "__main__":
