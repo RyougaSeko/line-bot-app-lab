@@ -13,21 +13,21 @@
       }
     },
     {
-      "type": "ダーツ",
+      "type": "action",
       "imageUrl": "https://thumb.ac-illust.com/d2/d2bed86cb4906a5078f5d4b5292fc91b_w.jpeg",
       "action": {
         "type": "message",
-        "label": "Tempura",
-        "text": "Tempura"
+        "label": "ダーツ",
+        "text": "ダーツ"
       }
     },
     {
-      "type": "カラオケ",
+      "type": "action",
       "imageUrl": "https://thumb.ac-illust.com/52/52f83af7d4f44e4bdc28c14299d468af_w.jpeg",
       "action": {
         "type": "message",
-        "label": "Tempura",
-        "text": "Tempura"
+        "label": "カラオケ",
+        "text": "カラオケ"
       }
     },
     {
