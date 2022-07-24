@@ -23,14 +23,10 @@ import requests
 import urllib.parse
 import xml.etree.ElementTree as ET
 
-sys.path.append("spreadsheet.py")
-import spreadsheet as myspred
+# sys.path.append("spreadsheet.py")
  
 app = Flask(__name__)
 
-
-
-import sys
 # sys.path.append("/Users/hoop105ryouga/Documents/LineBot/.venv/lib/python3.9/site-packages")
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -38,6 +34,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 import config
 import lineapphandle
+import spreadsheet
+
 
 
 # use creds to create a client to interact with the Google Drive API
@@ -120,9 +118,20 @@ def handle_message(event):
     lineapphandle.TextMessage(event)
 
 
+#push型のメッセージを送る
+def main():
+
+    user_id_li = RemoteControlGoogleSpreadSheet.get_UserId()
+    if len(user_id_li) != 0:
+        for user_id in user_id_li:
+
+            messages = TextSendMessage(text=f"こんにちは😁\n\n"
+                                            f"最近はいかがお過ごしでしょうか?")
+            line_bot_api.push_message(user_id, messages=messages)    
 
 # ポート番号の設定
 if __name__ == "__main__":
+# main()
 #    app.run()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
