@@ -111,7 +111,7 @@ def callback():
 #         event.reply_token,
 #         TextSendMessage(text="Hi")) #ここでオウム返しのメッセージを返します。
  
-@handler.add(MessageEvent, message=LocationMessage)
+@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
     # line_bot_api.reply_message(
