@@ -11,6 +11,8 @@ from linebot.models import (
 )
 import config, reply
 import random, copy
+import spreadsheet
+from spreadsheet import RemoteControlGoogleSpreadSheet
 
 YOUR_CHANNEL_SECRET = config.YOUR_CHANNEL_SECRET
 YOUR_CHANNEL_ACCESS_TOKEN = config.YOUR_CHANNEL_ACCESS_TOKEN
@@ -26,8 +28,11 @@ def TextMessage(event):
     userId = event.source.user_id
     message = event.message.text
 
-    if not userId in usersList:
-        usersList.append(userId)
+    # if not userId in usersList:
+    #     usersList.append(userId)
+    #ユーザーIDが未登録の場合、ユーザーIDを登録する
+    if userId not in RemoteControlGoogleSpreadSheet.get_UserId():
+        RemoteControlGoogleSpreadSheet.write_UserId(userId)
 
     # reply
     message = TextSendMessage("Hello")
