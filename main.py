@@ -1,10 +1,11 @@
 import os
 import sys
-import json
+# sys.path.append("/Users/hoop105ryouga/Documents/LineBot/.venv/lib/python3.9/site-packages")
 
-#jsonファイルのインポート
+#spredsheet.pyをmyspredとしてインポート
 
 from flask import Flask, request, abort, send_file
+import json
  
 from linebot import (
     LineBotApi, WebhookHandler
@@ -13,7 +14,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize, FlexSendMessage, QuickReply, QuickReplyButton, MessageAction
+MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize
 )
 
 from io import BytesIO, StringIO
@@ -28,12 +29,48 @@ import spreadsheet as myspred
 app = Flask(__name__)
 
 
+
+import sys
+# sys.path.append("/Users/hoop105ryouga/Documents/LineBot/.venv/lib/python3.9/site-packages")
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+
+import config
+import lineapphandle
+
+
+# use creds to create a client to interact with the Google Drive API
+scope =['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+client = gspread.authorize(creds)
+
+# use creds to create a client to interact with the Google Drive API
+scope =['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+client = gspread.authorize(creds)
+
+# Find a workbook by name and open the first sheet
+# Make sure you use the right name here.
+sheet = client.open("飲食店DB").sheet1
+
+# Extract and print all of the values
+list_of_hashes = sheet.get_all_records()
+restaurant_info = list_of_hashes[0]
+info = ""
+for myvalue in restaurant_info.values():
+    info += myvalue
+
+
+
 #環境変数取得
 # LINE Developersで設定されているアクセストークンとChannel Secretをを取得し、設定します。
  
 line_bot_api = LineBotApi('1BDCusHAfyLU9N+yl8EB1HQC4VFSgGs2AtLMQkwcg43qdf9STwQfONWPCM40W76h74Ad003w5ddcZdVSNoNcDH7h/opvM3UfoLasHEVRn1x13PrSx9kcGVz6w2SNxa02ne0VbNwZgf8Z0LLODSIK7AdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('71b252f9a0355dc60dd372de730204bf')
 
+
+#王蟲返しapp
 
 ## 1 ##
 #Webhookからのリクエストをチェックします。
@@ -56,7 +93,12 @@ def callback():
         abort(400)
 # handleの処理を終えればOK
     return 'OK'
-
+ 
+## 2 ##
+###############################################
+#LINEのメッセージの取得と返信内容の設定(オウム返し)
+###############################################
+ 
 #LINEでMessageEvent（普通のメッセージを送信された場合）が起こった場合に、
 #def以下の関数を実行します。
 #reply_messageの第一引数のevent.reply_tokenは、イベントの応答に用いるトークンです。 
@@ -68,31 +110,16 @@ def callback():
 #     line_bot_api.reply_message(
 #         event.reply_token,
 #         TextSendMessage(text="Hi")) #ここでオウム返しのメッセージを返します。
-
-json_open = open('quick_reply.json', 'r')
-json_load = json.load(json_open)
-print(json_load)
-
-# flex_message = FlexSendMessage(
-#     alt_text='hello',
-#     contents=json_load
-# )
-
-# text_message = TextSendMessage(
-#     text='Hello, world',
-#     quick_reply=json_load
-# )
-
-text_message = TextSendMessage(text='Hello, world',
-                               quick_reply=QuickReply(
-                                   items = json_load["quickReply"]["items"]
-                               ))
-
+ 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_message(event):
 #   geo_info = f"{event.message.latitude} {event.message.longitude}"
-    line_bot_api.reply_message(
-        event.reply_token, messages = text_message)#ここでメッセージを返します。第二引数は、メッセージオブジェクトに値を渡して返ってきたもの
+    # line_bot_api.reply_message(
+    #     event.reply_token,
+    #     TextSendMessage(info))#ここでメッセージを返します。
+    lineapphandle.TextMessage(event)
+
+
 
 # ポート番号の設定
 if __name__ == "__main__":
