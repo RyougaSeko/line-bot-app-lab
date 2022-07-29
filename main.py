@@ -121,7 +121,7 @@ def handle_message(event):
 #push型のメッセージを送る
 def main():
 
-    user_id_li = RemoteControlGoogleSpreadSheet.get_UserId()
+    user_id_li = spreadsheet.RemoteControlGoogleSpreadSheet("a").get_UserId()
     if len(user_id_li) != 0:
         for user_id in user_id_li:
 
@@ -131,7 +131,7 @@ def main():
 
 # ポート番号の設定
 if __name__ == "__main__":
-# main()
+    main()
 #    app.run()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)

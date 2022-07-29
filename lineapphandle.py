@@ -30,8 +30,9 @@ def TextMessage(event):
     # if not userId in usersList:
     #     usersList.append(userId)
     #ユーザーIDが未登録の場合、ユーザーIDを登録する
-    if userId not in spreadsheet.RemoteControlGoogleSpreadSheet.get_UserId():
-        spreadsheet.RemoteControlGoogleSpreadSheet.write_UserId(userId)
+    a = spreadsheet.RemoteControlGoogleSpreadSheet(userId)
+    if userId not in a.get_UserId():
+        a.write_UserId(userId)
 
     # reply
     message = TextSendMessage("Hello")
