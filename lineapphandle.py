@@ -41,7 +41,7 @@ def TextMessage(event):
         row_count = 1
         while sheet.cell(row_count, 1).value != None:
             row_count += 1
-            sheet.update_cell(row_count, 1, userId)
+        sheet.update_cell(row_count, 1, userId)
     # reply
     message = TextSendMessage("Hello")
     # reply.reply_message(event, message)
