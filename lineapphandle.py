@@ -12,7 +12,8 @@ from linebot.models import (
 import config, reply
 import random, copy
 import spreadsheet
-from spreadsheet import sheet
+from spreadsheet import use_id_sheet, EngBot_Sheet
+import random
 
 YOUR_CHANNEL_SECRET = config.YOUR_CHANNEL_SECRET
 YOUR_CHANNEL_ACCESS_TOKEN = config.YOUR_CHANNEL_ACCESS_TOKEN
@@ -30,7 +31,7 @@ def TextMessage(event):
 
     #spreadsheetからuser_idのデータベースを取得。
     #[{'user_id': 'waeomclke'}, {'user_id': 'cmwelm'}]のリスト形式でuser_idを取得
-    use_ids_record = sheet.get_all_records()
+    use_ids_record = use_id_sheet.get_all_records()
     #user_idが登録済みではない場合、スプレッドシートに登録する。
     user_id_li = []
     for user_id in use_ids_record:
@@ -39,10 +40,20 @@ def TextMessage(event):
 
     if userId not in user_id_li:
         row_count = 1
-        while sheet.cell(row_count, 1).value != None:
+        while use_id_sheet.cell(row_count, 1).value != None:
             row_count += 1
-        sheet.update_cell(row_count, 1, userId)
-    # reply
-    message = TextSendMessage("Hello")
+        use_id_sheet.update_cell(row_count, 1, userId)
+
+    #pushするメッセージを取ってくる。
+    #EngBot_Sheet1から、キー「english」をランダムに送信
+    eng_phrases_record = EngBot_Sheet.get_all_records()
+    eng_phrases_li = []
+    #eng_phrases_recordの中身を取り出す。
+    for eng_phrase in eng_phrases_record:
+        #eng_phrase = {'english': 'waeomclke'}
+        eng_phrases_li.append(eng_phrase['english'])
+
+    message = TextSendMessage(random.choice(eng_phrases_li))
+
     # reply.reply_message(event, message)
     reply.push_message(userId, message)
