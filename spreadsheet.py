@@ -8,7 +8,7 @@ scope =['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/aut
 creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 client = gspread.authorize(creds)
 use_id_sheet = client.open("LINE_UserId").sheet1
-EngBot_Sheet = client.open("EngBot_Sheet").sheet1
+EngBot_Sheet = client.open("EngBot_Sheet1").sheet1
 
 # Find a workbook by name and open the first sheet
 # Make sure you use the right name here.
