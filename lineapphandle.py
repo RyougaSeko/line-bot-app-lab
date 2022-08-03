@@ -12,6 +12,7 @@ from linebot.models import (
 import config, reply
 import random, copy
 import spreadsheet
+from spreadsheet import sheet
 
 YOUR_CHANNEL_SECRET = config.YOUR_CHANNEL_SECRET
 YOUR_CHANNEL_ACCESS_TOKEN = config.YOUR_CHANNEL_ACCESS_TOKEN
@@ -27,13 +28,15 @@ def TextMessage(event):
     userId = event.source.user_id
     message = event.message.text
 
-    # if not userId in usersList:
-    #     usersList.append(userId)
-    #ユーザーIDが未登録の場合、ユーザーIDを登録する
-    a = spreadsheet.RemoteControlGoogleSpreadSheet(userId)
-    if userId not in a.get_UserId():
-        a.write_UserId(userId)
-
+    #spreadsheetからuser_idのデータベースを取得。
+    #[{'user_id': 'waeomclke'}, {'user_id': 'cmwelm'}]のリスト形式でuser_idを取得
+    use_ids_record = sheet.get_all_records()
+    #user_idが登録済みではない場合、スプレッドシートに登録する。
+    if userId not in use_ids_record:
+        row_count = 1
+        while sheet.cell(row_count, 1).value != None:
+            row_count += 1
+            sheet.update_cell(row_count, 1, userId)
     # reply
     message = TextSendMessage("Hello")
     # reply.reply_message(event, message)
