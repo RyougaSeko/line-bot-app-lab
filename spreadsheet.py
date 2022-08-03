@@ -7,10 +7,11 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope =['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 client = gspread.authorize(creds)
-sheet = client.open("LINE_UserId").sheet1
+use_id_sheet = client.open("LINE_UserId").sheet1
+EngBot_Sheet = client.open("EngBot_Sheet").sheet1
+
 # Find a workbook by name and open the first sheet
 # Make sure you use the right name here.
-user_id = "user_id"
     
 #空のcell(Noneが帰ってくるまで)に行き着くまでになるまで、繰り返し見ていく
 # row_count = 1
