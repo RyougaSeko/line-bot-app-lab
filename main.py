@@ -43,21 +43,16 @@ scope =['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/aut
 creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 client = gspread.authorize(creds)
 
-# use creds to create a client to interact with the Google Drive API
-scope =['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
-client = gspread.authorize(creds)
-
 # Find a workbook by name and open the first sheet
 # Make sure you use the right name here.
-sheet = client.open("飲食店DB").sheet1
+# sheet = client.open("飲食店DB").sheet1
 
-# Extract and print all of the values
-list_of_hashes = sheet.get_all_records()
-restaurant_info = list_of_hashes[0]
-info = ""
-for myvalue in restaurant_info.values():
-    info += myvalue
+# # Extract and print all of the values
+# list_of_hashes = sheet.get_all_records()
+# restaurant_info = list_of_hashes[0]
+# info = ""
+# for myvalue in restaurant_info.values():
+#     info += myvalue
 
 
 
@@ -119,19 +114,19 @@ def handle_message(event):
 
 
 #push型のメッセージを送る
-def main():
+# def main():
 
-    user_id_li = spreadsheet.RemoteControlGoogleSpreadSheet("a").get_UserId()
-    if len(user_id_li) != 0:
-        for user_id in user_id_li:
+#     user_id_li = spreadsheet.RemoteControlGoogleSpreadSheet("a").get_UserId()
+#     if len(user_id_li) != 0:
+#         for user_id in user_id_li:
 
-            messages = TextSendMessage(text=f"こんにちは😁\n\n"
-                                            f"最近はいかがお過ごしでしょうか?")
-            line_bot_api.push_message(user_id, messages=messages)    
+#             messages = TextSendMessage(text=f"こんにちは😁\n\n"
+#                                             f"最近はいかがお過ごしでしょうか?")
+#             line_bot_api.push_message(user_id, messages=messages)    
 
 # ポート番号の設定
 if __name__ == "__main__":
-    main()
+    # main()
 #    app.run()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
