@@ -32,7 +32,12 @@ def TextMessage(event):
     #[{'user_id': 'waeomclke'}, {'user_id': 'cmwelm'}]のリスト形式でuser_idを取得
     use_ids_record = sheet.get_all_records()
     #user_idが登録済みではない場合、スプレッドシートに登録する。
-    if userId not in use_ids_record:
+    user_id_li = []
+    for user_id in use_ids_record:
+        #user_id = {'user_id': 'waeomclke'}
+        user_id_li.append(user_id['user_id'])
+
+    if userId not in user_id_li:
         row_count = 1
         while sheet.cell(row_count, 1).value != None:
             row_count += 1
