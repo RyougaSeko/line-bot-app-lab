@@ -14,7 +14,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize
+MessageEvent, TextMessage, LocationMessage, LocationSendMessage,TextSendMessage, StickerSendMessage, MessageImagemapAction, ImagemapArea, ImagemapSendMessage, BaseSize, FollowEvent
 )
 
 from io import BytesIO, StringIO
@@ -122,7 +122,14 @@ def handle_message(event):
 
 #             messages = TextSendMessage(text=f"こんにちは😁\n\n"
 #                                             f"最近はいかがお過ごしでしょうか?")
-#             line_bot_api.push_message(user_id, messages=messages)    
+#             line_bot_api.push_message(user_id, messages=messages)   
+# 
+
+#フォローイベント時の処理
+@handler.add(FollowEvent)
+def handle_follow(event):
+    lineapphandle.FollowEvent(event)
+
 
 # ポート番号の設定
 if __name__ == "__main__":
