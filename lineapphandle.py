@@ -24,11 +24,7 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 usersList = []
 usersDic = {}
 
-#ここに、webhookイベントが発生した時の処理を書く
-def TextMessage(event):
-    userId = event.source.user_id
-    message = event.message.text
-
+def UpdateUserId(userId):
     #spreadsheetからuser_idのデータベースを取得。
     #[{'user_id': 'waeomclke'}, {'user_id': 'cmwelm'}]のリスト形式でuser_idを取得
     use_ids_record = use_id_sheet.get_all_records()
@@ -44,6 +40,15 @@ def TextMessage(event):
             row_count += 1
         use_id_sheet.update_cell(row_count, 1, userId)
 
+
+#ここに、webhookイベントが発生した時の処理を書く
+def TextMessage(event):
+    userId = event.source.user_id
+    message = event.message.text
+
+    #ユーザーIDがない場合、登録する
+    UpdateUserId(userId)
+
     #pushするメッセージを取ってくる。
     #EngBot_Sheet1から、キー「english」をランダムに送信
     eng_phrases_record = EngBot_Sheet.get_all_records()
@@ -57,3 +62,15 @@ def TextMessage(event):
 
     # reply.reply_message(event, message)
     reply.push_message(userId, message)
+
+def FollowEvent(event):
+
+    #event.source.user_idはuser_id
+    profile = line_bot_api.get_profile(event.source.user_id)
+    UpdateUserId(profile.user_id)
+
+    #友達追加したユーザにメッセージを送信
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text="友達追加ありがとうございます\n")
+    )
