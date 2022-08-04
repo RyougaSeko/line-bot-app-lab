@@ -23,7 +23,8 @@ def createRichmenu():
             areas=[
                 RichMenuArea(
                     bounds=RichMenuBounds(x=0, y=0, width=1200, height=405),
-                    action=MessageAction(text=GenerateMessage())
+                    # action=MessageAction(text=GenerateMessage())
+                    action=MessageAction(text="hungry"())
                 )
             ]
         )

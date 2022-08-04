@@ -51,7 +51,12 @@ def GenerateMessage():
         #eng_phrase = {'english': 'waeomclke'}
         eng_phrases_li.append(eng_phrase['english'])
 
-    message = random.choice(eng_phrases_li)
+    message = ""
+    for i in range(5):
+        if i == 4:
+            message += random.choice(eng_phrases_li)
+        else:
+            message += random.choice(eng_phrases_li) + ''
     return message
 
 
