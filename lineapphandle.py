@@ -56,7 +56,7 @@ def GenerateMessage():
         if i == 4:
             message += random.choice(eng_phrases_li)
         else:
-            message += random.choice(eng_phrases_li) + ''
+            message += random.choice(eng_phrases_li) + '\n'
     return message
 
 
@@ -82,5 +82,5 @@ def FollowEvent(event):
     #友達追加したユーザにメッセージを送信
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="友達追加ありがとうございます😃\n")
+        TextSendMessage(text="友達追加ありがとうございます😃 毎日英語を少しずつ学んでいきましょう😆\n")
     )
