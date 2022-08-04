@@ -24,7 +24,7 @@ def createRichmenu():
                 RichMenuArea(
                     bounds=RichMenuBounds(x=0, y=0, width=1200, height=405),
                     # action=MessageAction(text=GenerateMessage())
-                    action=MessageAction(text="英語を5つ覚える")
+                    action=MessageAction()
                 )
             ]
         )
