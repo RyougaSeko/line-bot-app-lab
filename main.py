@@ -22,6 +22,7 @@ from io import BytesIO, StringIO
 import requests
 import urllib.parse
 import xml.etree.ElementTree as ET
+from createRichmenu import createRichmenu
 
 # sys.path.append("spreadsheet.py")
  
@@ -69,6 +70,7 @@ handler = WebhookHandler('71b252f9a0355dc60dd372de730204bf')
 #Webhookからのリクエストをチェックします。
 @app.route("/callback", methods=['POST'])
 def callback():
+    createRichmenu()
     # リクエストヘッダーから署名検証のための値を取得します。
     signature = request.headers['X-Line-Signature']
  
