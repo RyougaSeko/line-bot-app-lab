@@ -21,12 +21,14 @@ def createRichmenu():
             name = 'richmenu for randomchat',
             chat_bar_text = 'TAP HERE',
             areas=[
+                
                 RichMenuArea(
                     bounds=RichMenuBounds(x=0, y=0, width=1200, height=405),
-                    action=URIAction(label='Go to line.me', uri='https://line.me')
+                    action=URIAction(label='Go to line.me', uri='https://line.me'),
                     # action=MessageAction(text=GenerateMessage())
-                    # action=MessageAction(label = 'hello', text = 'hello')
+                    action=MessageAction(label = 'hello', text = 'hello')
                 )
+                
             ]
         )
         richMenuId = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
