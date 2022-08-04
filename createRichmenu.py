@@ -22,9 +22,9 @@ def createRichmenu():
             chat_bar_text = 'TAP HERE',
             areas=[
                 RichMenuArea(
-                    bounds=RichMenuBounds(x=0, y=0, width=1200, height=405),
+                    bounds=RichMenuBounds(x=0, y=0, width=1200, height=405)
                     # action=MessageAction(text=GenerateMessage())
-                    action=MessageAction(label = 'hello', text = 'hello')
+                    # action=MessageAction(label = 'hello', text = 'hello')
                 )
             ]
         )
