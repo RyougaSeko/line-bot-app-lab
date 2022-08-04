@@ -7,9 +7,9 @@ from linebot.models import (
     RichMenuBounds, MessageAction, URIAction
 )
 
-from config import line_bot_api
-
 from lineapphandle import GenerateMessage
+line_bot_api = LineBotApi('1BDCusHAfyLU9N+yl8EB1HQC4VFSgGs2AtLMQkwcg43qdf9STwQfONWPCM40W76h74Ad003w5ddcZdVSNoNcDH7h/opvM3UfoLasHEVRn1x13PrSx9kcGVz6w2SNxa02ne0VbNwZgf8Z0LLODSIK7AdB04t89/1O/w1cDnyilFU=')
+
 
 def createRichmenu():
     result = False
