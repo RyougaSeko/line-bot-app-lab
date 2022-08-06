@@ -118,9 +118,9 @@ def handle_message(event):
 
 
 #push型のメッセージを送る
-def main():
+# def main():
 
-    createRichmenu()
+#     createRichmenu()
 
 #     user_id_li = spreadsheet.RemoteControlGoogleSpreadSheet("a").get_UserId()
 #     if len(user_id_li) != 0:
@@ -139,7 +139,7 @@ def handle_follow(event):
 
 # ポート番号の設定
 if __name__ == "__main__":
-    main()
+    # main()
     app.run()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
