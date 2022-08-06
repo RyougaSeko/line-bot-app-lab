@@ -19,18 +19,18 @@ def createRichmenu():
             size = RichMenuSize(width=1200, height=405),
             selected = True,
             name = 'richmenu for randomchat',
-            chat_bar_text = 'TAP HERE',
+            chat_bar_text = 'TAP',
             areas=[
                 
-                # RichMenuArea(
-                #     #1200x405を2分割
-                #     bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
-                #     action=MessageAction(label = 'hello', text = 'わからない')
-                # ),
-                # # RichMenuArea(
-                # #     bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
-                # #     action=MessageAction(label = 'hello', text = 'わかる')
-                # # )
+                RichMenuArea(
+                    #1200x405を2分割
+                    bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
+                    action=MessageAction(label = 'hello', text = 'わからない')
+                ),
+                RichMenuArea(
+                    bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
+                    action=MessageAction(label = 'hello', text = 'わかる')
+                )
                 
             ]
         )
