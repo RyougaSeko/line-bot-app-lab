@@ -70,6 +70,7 @@ handler = WebhookHandler('71b252f9a0355dc60dd372de730204bf')
 #Webhookからのリクエストをチェックします。
 @app.route("/callback", methods=['POST'])
 def callback():
+    #リッチメニューを呼び出す？
     createRichmenu()
     # リクエストヘッダーから署名検証のための値を取得します。
     signature = request.headers['X-Line-Signature']

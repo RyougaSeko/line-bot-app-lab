@@ -23,8 +23,13 @@ def createRichmenu():
             areas=[
                 
                 RichMenuArea(
-                    bounds=RichMenuBounds(x=0, y=0, width=1200, height=405),
+                    #1200x405を2分割
+                    bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
                     action=MessageAction(label = 'hello', text = 'learn new words')
+                ),
+                RichMenuArea(
+                    bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
+                    action=MessageAction(text=config.NEXT)
                 )
                 
             ]

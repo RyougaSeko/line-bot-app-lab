@@ -1,3 +1,7 @@
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+
 # LINE Messaging API
 #チャネルアクセストークンがあることで、自分のアカウントにアクセスできている
 YOUR_CHANNEL_ACCESS_TOKEN = '1BDCusHAfyLU9N+yl8EB1HQC4VFSgGs2AtLMQkwcg43qdf9STwQfONWPCM40W76h74Ad003w5ddcZdVSNoNcDH7h/opvM3UfoLasHEVRn1x13PrSx9kcGVz6w2SNxa02ne0VbNwZgf8Z0LLODSIK7AdB04t89/1O/w1cDnyilFU='
