@@ -25,11 +25,11 @@ def createRichmenu():
                 RichMenuArea(
                     #1200x405を2分割
                     bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
-                    action=MessageAction(label = 'hello', text = 'learn new words')
+                    action=MessageAction(label = 'hello', text = 'わからない')
                 ),
                 RichMenuArea(
                     bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
-                    action=MessageAction(text=config.NEXT)
+                    action=MessageAction(label = 'hello', text = 'わかる')
                 )
                 
             ]
@@ -37,7 +37,7 @@ def createRichmenu():
         richMenuId = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
         # upload an image for rich menu
-        path = 'Learnwords.png'
+        path = '../pic/know-or-dont.png'
 
         #ファイル読み込み
         with open(path, 'rb') as f:
