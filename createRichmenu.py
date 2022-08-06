@@ -22,15 +22,15 @@ def createRichmenu():
             chat_bar_text = 'TAP HERE',
             areas=[
                 
-                RichMenuArea(
-                    #1200x405を2分割
-                    bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
-                    action=MessageAction(label = 'hello', text = 'わからない')
-                ),
                 # RichMenuArea(
-                #     bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
-                #     action=MessageAction(label = 'hello', text = 'わかる')
-                # )
+                #     #1200x405を2分割
+                #     bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
+                #     action=MessageAction(label = 'hello', text = 'わからない')
+                # ),
+                # # RichMenuArea(
+                # #     bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
+                # #     action=MessageAction(label = 'hello', text = 'わかる')
+                # # )
                 
             ]
         )
