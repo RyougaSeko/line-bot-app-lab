@@ -75,10 +75,10 @@ def TextMessage(event):
     # reply.push_message(userId, message)
     if message == 'わかる':
         message = TextSendMessage(eng_phrase)
-        reply.push_message(userId, return_jpn_message)
+        reply.push_message(userId, eng_phrase)
     elif message == 'わからない':
         message = TextSendMessage(eng_phrase)
-        reply.push_message(userId, return_jpn_message)
+        reply.push_message(userId, jpn_phrase)
     else:
         #返す日本語のメッセージを作成
         return_message = GenerateMessage()
