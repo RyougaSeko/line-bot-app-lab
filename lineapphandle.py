@@ -53,7 +53,7 @@ def GenerateMessage():
     #ランダムに辞書を取り出す
     random_dic = random.choice(jpn_phrases_record)
     #ex random_dic = {'id': 1, 'japanese': '将来は弁護士になる予定だ', 'english': "I'm going to become a layer in the future.", 'メモ': ''}
-    
+
     jpn_phrase = random_dic['japanese']
     eng_phrase = random_dic['english']
 
@@ -75,8 +75,10 @@ def TextMessage(event):
     # reply.push_message(userId, message)
     if message == 'わかる':
         message = TextSendMessage(eng_phrase)
+        reply.push_message(userId, return_jpn_message)
     elif message == 'わからない':
         message = TextSendMessage(eng_phrase)
+        reply.push_message(userId, return_jpn_message)
     else:
         #返す日本語のメッセージを作成
         return_message = GenerateMessage()
