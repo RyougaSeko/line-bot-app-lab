@@ -74,11 +74,11 @@ def TextMessage(event):
     # # reply.reply_message(event, message)
     # reply.push_message(userId, message)
     if message == 'わかる':
-        message = TextSendMessage(eng_phrase)
-        reply.push_message(userId, eng_phrase)
+        return_eng_message = TextSendMessage(eng_phrase)
+        reply.push_message(userId, return_eng_message)
     elif message == 'わからない':
-        message = TextSendMessage(eng_phrase)
-        reply.push_message(userId, jpn_phrase)
+        return_eng_message = TextSendMessage(eng_phrase)
+        reply.push_message(userId, return_eng_message)
     else:
         #返す日本語のメッセージを作成
         return_message = GenerateMessage()
