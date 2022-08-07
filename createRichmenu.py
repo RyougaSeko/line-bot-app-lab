@@ -42,7 +42,11 @@ def createRichmenu():
         #ファイル読み込み
         with open(path, 'rb') as f:
             line_bot_api.set_rich_menu_image(richMenuId, "image/jpeg", f)
-
+        
+        #既存リッチメニューをキャンセル
+        line_bot_api.cancel_default_rich_menu()
+        #既存のリッチメニューを削除
+        delete_richmenu(line_bot_api)
         # set the default rich menu
         line_bot_api.set_default_rich_menu(richMenuId)
 
@@ -53,3 +57,12 @@ def createRichmenu():
 
 
     return result
+
+# 全てのリッチメニューを削除する
+def delete_richmenu(line_bot_api):
+    print("delete user richmenu")
+    menu_list = line_bot_api.get_rich_menu_list()
+
+    for richmenu in menu_list:
+        print("delete user richmenu "+richmenu.rich_menu_id)
+        line_bot_api.delete_rich_menu(richmenu.rich_menu_id)
