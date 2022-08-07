@@ -10,6 +10,14 @@ from linebot.models import (
 from lineapphandle import GenerateMessage
 line_bot_api = LineBotApi('1BDCusHAfyLU9N+yl8EB1HQC4VFSgGs2AtLMQkwcg43qdf9STwQfONWPCM40W76h74Ad003w5ddcZdVSNoNcDH7h/opvM3UfoLasHEVRn1x13PrSx9kcGVz6w2SNxa02ne0VbNwZgf8Z0LLODSIK7AdB04t89/1O/w1cDnyilFU=')
 
+# 全てのリッチメニューを削除する
+def delete_richmenu(line_bot_api):
+    print("delete user richmenu")
+    menu_list = line_bot_api.get_rich_menu_list()
+
+    for richmenu in menu_list:
+        print("delete user richmenu "+richmenu.rich_menu_id)
+        line_bot_api.delete_rich_menu(richmenu.rich_menu_id)
 
 def createRichmenu():
     result = False
@@ -34,6 +42,11 @@ def createRichmenu():
                 
             ]
         )
+        #既存リッチメニューをキャンセル
+        line_bot_api.cancel_default_rich_menu()
+        #既存のリッチメニューを削除
+        delete_richmenu(line_bot_api)
+
         richMenuId = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
 
         # upload an image for rich menu
@@ -43,10 +56,6 @@ def createRichmenu():
         with open(path, 'rb') as f:
             line_bot_api.set_rich_menu_image(richMenuId, "image/jpeg", f)
         
-        #既存リッチメニューをキャンセル
-        line_bot_api.cancel_default_rich_menu()
-        #既存のリッチメニューを削除
-        delete_richmenu(line_bot_api)
         # set the default rich menu
         line_bot_api.set_default_rich_menu(richMenuId)
 
@@ -57,12 +66,3 @@ def createRichmenu():
 
 
     return result
-
-# 全てのリッチメニューを削除する
-def delete_richmenu(line_bot_api):
-    print("delete user richmenu")
-    menu_list = line_bot_api.get_rich_menu_list()
-
-    for richmenu in menu_list:
-        print("delete user richmenu "+richmenu.rich_menu_id)
-        line_bot_api.delete_rich_menu(richmenu.rich_menu_id)
