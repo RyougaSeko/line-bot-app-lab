@@ -14,6 +14,7 @@ import random, copy
 import spreadsheet
 from spreadsheet import use_id_sheet, EngBot_Sheet
 import random
+import time
 
 YOUR_CHANNEL_SECRET = config.YOUR_CHANNEL_SECRET
 YOUR_CHANNEL_ACCESS_TOKEN = config.YOUR_CHANNEL_ACCESS_TOKEN
@@ -78,21 +79,23 @@ def TextMessage(event):
         reply.push_message(userId, return_eng_message)
 
         #次の問題を送る
+        time.sleep(2.5)
         return_message = GenerateMessage()
-        return_jpn_message = TextSendMessage(return_message[0])
+        return_jpn_message = TextSendMessage("次の問題です\n"+return_message[0])
         reply.push_message(userId, return_jpn_message)
 
         #global変数jpn_phraseと, eng_phraseにメッセージの内容を格納
         jpn_phrase = return_message[0]
         eng_phrase = return_message[1]
     elif message == 'わからない':
-        return_eng_message = TextSendMessage(eng_phrase)
+        return_eng_message = TextSendMessage("次の問題です\n"+eng_phrase)
         # * push_messageの第二引数は、strでは受け付けない。TextSendMessage()のみ？
         reply.push_message(userId, return_eng_message)
 
         #次の問題を送る
+        time.sleep(2.5)
         return_message = GenerateMessage()
-        return_jpn_message = TextSendMessage(return_message[0])
+        return_jpn_message = TextSendMessage("次の問題です\n"+return_message[0])
         reply.push_message(userId, return_jpn_message)
 
         #global変数jpn_phraseと, eng_phraseにメッセージの内容を格納
