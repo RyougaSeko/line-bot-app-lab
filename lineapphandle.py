@@ -76,10 +76,30 @@ def TextMessage(event):
     if message == 'わかる':
         return_eng_message = TextSendMessage(eng_phrase)
         reply.push_message(userId, return_eng_message)
+
+        #次の問題を送る
+        return_message = GenerateMessage()
+        return_jpn_message = TextSendMessage(return_message[0])
+        reply.push_message(userId, return_jpn_message)
+
+        #global変数jpn_phraseと, eng_phraseにメッセージの内容を格納
+        jpn_phrase = return_message[0]
+        eng_phrase = return_message[1]
     elif message == 'わからない':
         return_eng_message = TextSendMessage(eng_phrase)
+        # * push_messageの第二引数は、strでは受け付けない。TextSendMessage()のみ？
         reply.push_message(userId, return_eng_message)
-    else:
+
+        #次の問題を送る
+        return_message = GenerateMessage()
+        return_jpn_message = TextSendMessage(return_message[0])
+        reply.push_message(userId, return_jpn_message)
+
+        #global変数jpn_phraseと, eng_phraseにメッセージの内容を格納
+        jpn_phrase = return_message[0]
+        eng_phrase = return_message[1]
+
+    elif message == 'Next':
         #返す日本語のメッセージを作成
         return_message = GenerateMessage()
         return_jpn_message = TextSendMessage(return_message[0])
@@ -88,11 +108,9 @@ def TextMessage(event):
         #global変数jpn_phraseと, eng_phraseにメッセージの内容を格納
         jpn_phrase = return_message[0]
         eng_phrase = return_message[1]
-        
-
-
-
-
+    else:
+        pass
+    
 def FollowEvent(event):
 
     #event.source.user_idはuser_id
