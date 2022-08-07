@@ -38,34 +38,37 @@ def createRichmenu():
                 RichMenuArea(
                     #1200x405を2分割
                     bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
-                    action=MessageAction(label = 'hello', text = 'わからない')
-                ),
+                    action=MessageAction(label = 'わかる', text = 'わかる')
+                )
+                ,
                 RichMenuArea(
                     bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
-                    action=MessageAction(label = 'hello', text = 'わかる')
+                    action=MessageAction(label = 'わからない', text = 'わからない')
                 )
                 
             ]
         )
-
         richMenuId = line_bot_api.create_rich_menu(rich_menu=rich_menu_to_create)
+        print(richMenuId)
+
 
         # upload an image for rich menu
-        path = '../pic/know-or-dont.png'
+        path = 'pic/know-or-dont.png'
 
         #ファイル読み込み
         with open(path, 'rb') as f:
-            line_bot_api.set_rich_menu_image(richMenuId, "image/jpeg", f)
+            line_bot_api.set_rich_menu_image(richMenuId, "image/png", f)
         
-        # set the default rich menu
-        line_bot_api.set_default_rich_menu(richMenuId)
-        print(line_bot_api.get_rich_menu_list())
-
-
+            # set the default rich menu
+            line_bot_api.set_default_rich_menu(richMenuId)
         result = True
 
     except Exception:
         result = False
-
+        import traceback
+        traceback.print_exc()
 
     return result
+
+delete_richmenu(line_bot_api)
+createRichmenu()

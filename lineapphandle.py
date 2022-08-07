@@ -23,6 +23,8 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 usersList = []
 usersDic = {}
+jpn_phrase = ''
+eng_phrase = ''
 
 def UpdateUserId(userId):
     #spreadsheetからuser_idのデータベースを取得。
@@ -44,34 +46,50 @@ def GenerateMessage():
 
     #pushするメッセージを取ってくる。
     #EngBot_Sheet1から、キー「english」をランダムに送信
-    eng_phrases_record = EngBot_Sheet.get_all_records()
-    eng_phrases_li = []
-    #eng_phrases_recordの中身を取り出す。
-    for eng_phrase in eng_phrases_record:
-        #eng_phrase = {'english': 'waeomclke'}
-        eng_phrases_li.append(eng_phrase['english'])
+    jpn_phrases_record = EngBot_Sheet.get_all_records()
+    #リストの中に辞書が入っている。
+    # [{'id': 1, 'japanese': '将来は弁護士になる予定だ', 'english': "I'm going to become a layer in the future.", 'メモ': ''},
+    
+    #ランダムに辞書を取り出す
+    random_dic = random.choice(jpn_phrases_record)
+    #ex random_dic = {'id': 1, 'japanese': '将来は弁護士になる予定だ', 'english': "I'm going to become a layer in the future.", 'メモ': ''}
+    
+    jpn_phrase = random_dic['japanese']
+    eng_phrase = random_dic['english']
 
-    message = ""
-    for i in range(5):
-        if i == 4:
-            message += random.choice(eng_phrases_li)
-        else:
-            message += random.choice(eng_phrases_li) + '\n'
-    return message
-
+    return jpn_phrase, eng_phrase
 
 #ここに、webhookイベントが発生した時の処理を書く
 def TextMessage(event):
+    global eng_phrase
+    global jpn_phrase
+
     userId = event.source.user_id
     message = event.message.text
 
     #ユーザーIDがない場合、登録する
     UpdateUserId(userId)
+    #GenerateMessageで、jpn_phrase, eng_phraseを返す 
 
-    message = TextSendMessage(GenerateMessage())
+    # # reply.reply_message(event, message)
+    # reply.push_message(userId, message)
+    if message == 'わかる':
+        message = TextSendMessage(eng_phrase)
+    elif message == 'わからない':
+        message = TextSendMessage(eng_phrase)
+    else:
+        #返す日本語のメッセージを作成
+        return_message = GenerateMessage()
+        return_jpn_message = TextSendMessage(return_message[0])
+        reply.push_message(userId, return_jpn_message)
 
-    # reply.reply_message(event, message)
-    reply.push_message(userId, message)
+        #global変数jpn_phraseと, eng_phraseにメッセージの内容を格納
+        jpn_phrase = return_message[0]
+        eng_phrase = return_message[1]
+        
+
+
+
 
 def FollowEvent(event):
 
@@ -82,5 +100,5 @@ def FollowEvent(event):
     #友達追加したユーザにメッセージを送信
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="友達追加ありがとうございます😃 毎日英語を少しずつ学んでいきましょう😆\n")
+        TextSendMessage(text="友達追加ありがとうございます😃 毎日英語を少しずつ学んでいきましょう😆")
     )
