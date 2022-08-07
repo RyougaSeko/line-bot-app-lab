@@ -22,11 +22,11 @@ def delete_richmenu(line_bot_api):
 def createRichmenu():
     result = False
     try:
-        #既存リッチメニューをキャンセル
-        line_bot_api.cancel_default_rich_menu()
-        #既存のリッチメニューを削除
-        delete_richmenu(line_bot_api)
-        
+        # #既存リッチメニューをキャンセル
+        # line_bot_api.cancel_default_rich_menu()
+        # #既存のリッチメニューを削除
+        # delete_richmenu(line_bot_api)
+
         # define a new richmenu
         rich_menu_to_create = RichMenu(
             size = RichMenuSize(width=1200, height=405),
@@ -69,5 +69,3 @@ def createRichmenu():
 
 
     return result
-
-createRichmenu()
