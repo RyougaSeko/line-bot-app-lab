@@ -57,8 +57,9 @@ def GenerateMessage():
 
     jpn_phrase = random_dic['japanese']
     eng_phrase = random_dic['english']
-
+    print(jpn_phrases_record)
     return jpn_phrase, eng_phrase
+GenerateMessage()
 
 #ここに、webhookイベントが発生した時の処理を書く
 def TextMessage(event):
@@ -80,6 +81,7 @@ def TextMessage(event):
 
         #次の問題を送る
         time.sleep(1.5)
+
         reply.push_message(userId,TextSendMessage("次の問題です"))
         return_message = GenerateMessage()
         return_jpn_message = TextSendMessage(return_message[0])

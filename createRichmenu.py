@@ -21,11 +21,12 @@ def delete_richmenu(line_bot_api):
 
 def createRichmenu():
     result = False
+
     try:
-        # #既存リッチメニューをキャンセル
-        # line_bot_api.cancel_default_rich_menu()
-        # #既存のリッチメニューを削除
-        # delete_richmenu(line_bot_api)
+        #既存リッチメニューをキャンセル
+        line_bot_api.cancel_default_rich_menu()
+        #既存のリッチメニューを削除
+        delete_richmenu(line_bot_api)
 
         # define a new richmenu
         rich_menu_to_create = RichMenu(
@@ -37,12 +38,17 @@ def createRichmenu():
                 
                 RichMenuArea(
                     #1200x405を2分割
-                    bounds=RichMenuBounds(x=0, y=0, width=600, height=405),
-                    action=MessageAction(label = 'わかる', text = 'わかる')
+                    bounds=RichMenuBounds(x=0, y=0, width=400, height=405),
+                    action=MessageAction(label = 'next', text = 'Next')
                 )
                 ,
                 RichMenuArea(
-                    bounds=RichMenuBounds(x=600, y=0, width=600, height=405),
+                    bounds=RichMenuBounds(x=400, y=0, width=400, height=405),
+                    action=MessageAction(label = 'わかる', text = 'わかる')
+                ),
+                RichMenuArea(
+                    #1200x405を2分割
+                    bounds=RichMenuBounds(x=800, y=0, width=400, height=405),
                     action=MessageAction(label = 'わからない', text = 'わからない')
                 )
                 
@@ -53,7 +59,7 @@ def createRichmenu():
 
 
         # upload an image for rich menu
-        path = 'pic/know-or-dont.png'
+        path = 'pic/richmenu_3.png'
 
         #ファイル読み込み
         with open(path, 'rb') as f:
